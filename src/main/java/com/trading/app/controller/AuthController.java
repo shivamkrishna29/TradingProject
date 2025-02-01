@@ -21,7 +21,7 @@ public class AuthController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<User> register(@RequestBody User user){
-		
+	
 		User savedUser = new User();
 		savedUser.setFullName(user.getFullName());
 		savedUser.setEmail(user.getEmail());
