@@ -80,6 +80,7 @@ public class AuthController {
 	private Authentication authenticate(String userName, String password) {
 		// first we need to check email		
 		UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);		
+		
 		if(userDetails == null) {
 			throw new BadCredentialsException("Invalid Username");
 		}
@@ -87,6 +88,7 @@ public class AuthController {
 		if(!password.equals(userDetails.getPassword())) {
 			throw new BadCredentialsException("Invalid Password");
 		}
-		return new UsernamePasswordAuthenticationToken(password, userDetails);
+		//we always use userDetails in UsernamePasswordAuthenticationToken parameter for preventing data inconsistency
+		return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
 	}
 }
